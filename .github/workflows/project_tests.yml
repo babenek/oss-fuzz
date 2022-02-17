@@ -37,14 +37,6 @@ jobs:
         with:  # Needed for git diff to work. (get_changed_files)
           fetch-depth: 0
 
-      - name: Clear unnecessary files
-        run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo apt clean
-          docker rmi $(docker images -a -q)
-          df -h
-
       - name: Setup python environment
         uses: actions/setup-python@v2
         with:
