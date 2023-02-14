@@ -15,9 +15,18 @@
 #
 ################################################################################
 
-#set -x
+set -x
 
-python3 -m pip install -U CredSweeper/.
+pwd
+ls -al
+echo "SRC:$SRC"
+echo "OUT:$OUT"
+
+pwd
+
+python3 -m pip install -U pip
+python3 -m pip install -r CredSweeper/requirements.txt
+python3 -m pip install -r CredSweeper/fuzz/requirements.txt
 
 # Build fuzzers in $OUT.
 for fuzzer in $(find $SRC -name 'fuzz_*.py'); do
@@ -28,9 +37,14 @@ for fuzzer in $(find $SRC -name 'fuzz_*.py'); do
   # Create execution wrapper.
   echo "#!/bin/sh
 # LLVMFuzzerTestOneInput for fuzzer detection.
+set -x
+pwd
+ls -al
 this_dir=\$(dirname \"\$0\")
 LD_PRELOAD=\$this_dir/sanitizer_with_fuzzer.so \
 ASAN_OPTIONS=\$ASAN_OPTIONS:symbolize=1:external_symbolizer_path=\$this_dir/llvm-symbolizer:detect_leaks=0 \
 \$this_dir/$fuzzer_package \$@" > $OUT/$fuzzer_basename
   chmod +x $OUT/$fuzzer_basename
+  ls -al $OUT
+  cat $OUT/$fuzzer_basename
 done

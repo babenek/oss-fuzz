@@ -15,13 +15,12 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder-python
+
+WORKDIR $SRC
+
 RUN git clone \
     --depth 1 \
     https://github.com/Samsung/CredSweeper.git
 
-WORKDIR $SRC
-
 COPY build.sh $SRC/
-COPY requirements.txt $SRC/
 COPY fuzz_* $SRC/CredSweeper/
-
