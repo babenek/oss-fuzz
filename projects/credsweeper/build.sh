@@ -22,9 +22,11 @@ ls -al
 echo "SRC:$SRC"
 echo "OUT:$OUT"
 
+(cd CredSweeper && git log -1)
 pwd
 
 python3 -m pip install -U pip
+python3 -m pip install onnxruntime==1.13.1
 python3 -m pip install -r CredSweeper/requirements.txt
 python3 -m pip install -r CredSweeper/fuzz/requirements.txt
 
