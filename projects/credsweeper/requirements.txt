@@ -1,0 +1,18 @@
+# requirements only for fuzzing - without tensorflow
+attrs
+coverage
+GitPython
+google-auth-oauthlib
+iniconfig
+joblib
+packaging
+pluggy
+py
+pyparsing
+PyYAML
+regex
+requests
+toml
+yapf
+nltk
+whatthepatch
