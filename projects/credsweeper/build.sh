@@ -22,20 +22,9 @@ ls -al
 echo "SRC:$SRC"
 echo "OUT:$OUT"
 
-(
-cd CredSweeper; \
-git status; \
-patch credsweeper/app.py app.patch; \
-patch credsweeper/credentials/credential_manager.py credential_manager.patch; \
-patch credsweeper/scanner/scanner.py scanner.patch; \
-patch credsweeper/common/keyword_checklist.py keyword_checklist.patch; \
-git status; \
-git --no-pager diff; \
-)
-
 pwd
 
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r CredSweeper/requirements.txt
 
 # Build fuzzers in $OUT.
 for fuzzer in $(find $SRC -name 'fuzz_*.py'); do
